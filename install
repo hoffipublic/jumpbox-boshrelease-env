@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/bin
+touch ~/.bashrc
+
+grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ~/.bashrc
+source ~/.bashrc
+
