@@ -1,10 +1,11 @@
 #!/bin/bash
 
+echo "${date} env/jumpbox-boshrelease-env/install ran" >> $HOME/install.log"
 set -e
 
 mkdir -p ~/bin
-touch ~/.bashrc
+touch ${HOME}/.bashrc
 
-grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ~/.bashrc
-source ~/.bashrc
+grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ${HOME}/.bashrc
+source $HOME/.bashrc
 
