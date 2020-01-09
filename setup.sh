@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo '~/env/setup.sh ran'
+echo "$(date) ${HOME}/env/setup.sh ran" >> ${HOME}/install.log
 
