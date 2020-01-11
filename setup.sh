@@ -2,6 +2,7 @@
 
 echo "$(date) ${HOME}/env/setup.sh start..." >> ${HOME}/install.log
 
+set -x
 sudo apt update
 sudo apt --yes upgrade
 
@@ -18,5 +19,5 @@ sudo apt --yes install direnv spruce
 #sudo apt update
 sudo apt --yes install kubectl
 
+set +x
 echo "$(date) ${HOME}/env/setup.sh end." >> ${HOME}/install.log
-
