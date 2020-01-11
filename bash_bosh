@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 function boshenv() {
     if [ -z "$1" ]; then
