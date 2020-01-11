@@ -26,4 +26,7 @@ alias multilinevariable="echo -e \"variable=\\\$(cat <<-EOT\n\nEOT\n)\n\necho \\
 [ -f ~/env/bash.git ] && source ~/env/bash.git
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
+[ -f ~/env/bash_git ] && source ~/env/bash_git
+[ -f ~/env/bash_bosh ] && source ~/env/bash_bosh
+
 eval "$(direnv hook bash)"

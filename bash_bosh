@@ -5,12 +5,23 @@ function boshenv() {
         set -x
         export BOSH_ENVIRONMENT=malbec_bucc
         set +x
-        exit 1
+        return
+    fi
+    if [ "$1" = 'unset' ]; then
+        export BOSH_ENVIRONMENT_BACKUP=$BOSH_ENVIRONMENT ; unset BOSH_ENVIRONMENT
+        export BOSH_DEPLOYMENT_BACKUP=$BOSH_DEPLOYMENT ; unset BOSH_DEPLOYMENT
+        export BOSH_CA_CERT_BACKUP=$BOSH_CA_CERT ; unset BOSH_CA_CERT
+        export BOSH_GW_HOST_BACKUP=$BOSH_GW_HOST ; unset BOSH_GW_HOST
+        export BOSH_GW_USER_BACKUP=$BOSH_GW_USER ; unset BOSH_GW_USER
+        export BOSH_GW_PRIVATE_KEY_BACKUP=$BOSH_GW_PRIVATE_KEY ; unset BOSH_GW_PRIVATE_KEY
+        export BOSH_CLIENT_BACKUP=$BOSH_CLIENT ; unset BOSH_CLIENT
+        export BOSH_CLIENT_SECRET_BACKUP=$BOSH_CLIENT_SECRET ; unset BOSH_CLIENT_SECRET
+        return
     fi
     if [ "$1" = '-e' ]; then
         if [ -z "$2" ]; then
             >&2 echo "no bosh env given"
-            exit 1
+            return
         else
             set -x
             export BOSH_ENVIRONMENT=$2
@@ -22,7 +33,7 @@ function boshenv() {
     if [ "$1" = "-d" ]; then
         if [ -z "$2" ]; then
             >&2 echo "no deployment given"
-            exit 1
+            return
         else
             set -x
             export BOSH_DEPLOYMENT=$2
