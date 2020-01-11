@@ -14,8 +14,7 @@ alias llaa='ll -A .*'
 ### gnu sed: sed ':a;N;$!ba;s/\n/ /g'
 function toline() { local sep=" " ; if [ ! -z "$1" ]; then sep="$1" ; fi ; sed -e :a -e "\$!N; s/\n/$sep/; ta" ; }
 alias tolinecomma='sed -e :a -e "\$!N; s/\n/, /; ta"'
-function tosplit() { local f=" " ; local r="\n" ; if [ ! -z "$1" ]; then f="$1" ; fi ; if [ ! -z "$2" ]; then r="$2" ; fi ; awk "{gsub(/$f/,\"$r\
-")}1" ; }
+function tosplit() { local f=" " ; local r="\n" ; if [ ! -z "$1" ]; then f="$1" ; fi ; if [ ! -z "$2" ]; then r="$2" ; fi ; awk "{gsub(/$f/,\"$r\")}1" ; }
 alias replace=tosplit
 
 # templates just for informative purposes
