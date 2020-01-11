@@ -29,4 +29,4 @@ alias multilinevariable="echo -e \"variable=\\\$(cat <<-EOT\n\nEOT\n)\n\necho \\
 [ -f ~/env/bash_git ] && source ~/env/bash_git
 [ -f ~/env/bash_bosh ] && source ~/env/bash_bosh
 
-eval "$(direnv hook bash)"
+ if direnv version > /dev/null 2>&1 ; then eval "$(direnv hook bash)" ; fi
