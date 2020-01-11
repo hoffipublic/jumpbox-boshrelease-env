@@ -1,0 +1,60 @@
+
+alias amend='git commit --amend --no-edit'
+function commit { git commit -m "$*" ; }
+function uncommit { if [ -z "$1" ]; then nrofcommits=1 ; else nrofcommits=$1 ; fi ; git reset --soft HEAD~$nrofcommits ; }
+function merge { git merge --stat --ff-only "$*" ; }
+alias pull='git pull --all --recurse-submodules --rebase'
+alias push='git push --all --follow-tags'
+function rebase { git rebase --stat "$*" ; }
+function squash { if [ -z "$1" ]; then nrofcommits=1 ; else nrofcommits=$1 ; fi ; git rebase -i HEAD~$nrofcommits ; }
+
+alias gc='git checkout'
+alias gd='git diff --no-ext-diff --ignore-space-change'
+alias gdc='gd --cached'
+alias gdn='git diff --no-ext-diff --name-only'
+alias gdfiles='gdn'
+alias glastcommitsforfile='git log -5 --follow'
+alias glastcommitsforfilewithdiffs='git log -5 --follow -p'
+function gdlast() { if [ -z "$1" ]; then git diff HEAD^ ; else git diff HEAD^..HEAD -- $* ; fi ; }
+# alias gdlast='git log -p -1 --follow'
+alias glf='git log -p -1 --follow'
+alias gs='git status'
+alias gaa='git add -A; git status'
+function gsdirty() { git status --porcelain    | sed -n -E -e 's/^.[MADU?] +(.+)$/\1/p' ; }
+function gsmodified() { git status --porcelain | sed -n -E -e 's/^[MADURC ][MADU ] +(.+)$/\1/p' ; }
+function gsdirtyadd() { gsdirty | xargs git add ; }
+alias gsp='git status --porcelain'
+function gstocommit() { git status --porcelain | sed -n -E -e 's/^[MADU]. +(.+)$/\1/p' ; dirties=$(git status --porcelain | sed -n -E -e 's/^[MADURC][MADU] +(.+)$/\1/p') ; if [ ! -z "$dirties" ]; then echo ; echo "from these with unstaged changes:" ; echo "=================================" ; for dirty in $dirties ; do echo $dirty ; done ; fi ; }
+alias gsstaged=gstocommit
+function gsuntracked() { git status --porcelain | sed -n -E -e 's/^\?\? +(.+)$/\1/p' ; }
+function gsuntrackedadd() { gsuntracked | xargs git add ; }
+function gsuntrackedrm() { gsuntracked | xargs rm -r ; }
+alias gsrr='git status -uno -sb'
+alias gsr='git remote -v update && echo '==============================================' && git status -uno'
+alias gspf='gsp | grep -v -E "^M" | cut -c4- | sed -E "s/\$/ \\\\/"'
+alias gr='git remote -v'
+alias grsetRemoteUrl='git remote set-url'
+alias grc='git cherry origin/master master'
+function gl() { if [ -z "$1" ]; then nrofcommits=5 ; else nrofcommits=$1 ; fi ; git log --color --graph --decorate -n $nrofcommits ${@:2} ; }
+function gh() { git log --color --graph --decorate --all -- ${@:2} ; }
+function glstat() { if [ -z "$1" ]; then nrofcommits=5 ; else nrofcommits=$1 ; fi ; gl $nrofcommits --stat ; }
+alias glf=glstat
+alias glr='git log origin/master --color --graph --decorate --stat -n 5'
+alias gt="git tag --list --format '%(refname:short) %09 %(taggerdate) %09 \"%(subject)\"  by  %(taggeremail)'"
+alias gtagnames='git tag -n'
+alias gtag='git describe --abbrev=0 --tags'
+alias gtagnearest='git describe --abbrev=0'
+alias gtdate='git log --tags --simplify-by-decoration --pretty="format:%ci %d"'
+alias gb='git branch -vv'
+alias gba='git branch -a'
+alias gbranchnew='git checkout -b'
+function gitbranchname() { gitbranchname="$(git symbolic-ref HEAD 2>/dev/null)" || gitbranchname="none" ; gitbranchname=${gitbranchname##refs/heads/} ; echo -n $gitbranchname ; }
+alias gremotebranches='git ls-remote | grep -v "refs/pull/"'
+function gitdeletebranch() { gbn=$(gitbranchname) ; if [[ "$gbn" = "none" ]]; then echo "not inside a git repo" ; return ; fi ;if [[ "$gbn" =~ ^(|master|develop|hotfix/.*|release/.*)$ ]]; then echo "please delete the sensitive master|develop|hotfix|release branch manually, if you really intend to delete this branch!" ; return ; else set -x ; git checkout master ; git branch -d $gbn ; git push origin :$gbn ; fi ; set +x ; }
+alias gbunmerged='git branch --no-merged'
+function gbunmergedmaster() { currentBranch=$(git branch | sed -n -E 's/^\* (.*)$/\1/p') ; git checkout -q master ; git branch --no-merged ; git checkout -q $currentBranch ; }
+alias gmaster='git checkout master'
+alias gdev='git checkout develop'
+function gfeature() { declare -a gitfeaturebranches=($(git branch | sed -n -E -e "s#^.*(feature/$1.*)\$#\1#p")) ; if [ ${#gitfeaturebranches[*]} == 1 ] ; then git checkout ${gitfeaturebranches[0]} ; else git branch ; fi ; }
+
+alias gitsubsupdate='git submodule update --recursive --remote'
