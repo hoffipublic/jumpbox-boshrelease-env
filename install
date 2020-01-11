@@ -4,6 +4,8 @@ echo "$(date -Is) env/jumpbox-boshrelease-env/install start..." >> $HOME/install
 set -e
 
 mkdir -p ~/bin
+sudo mkdir -p /workarea
+sudo chown admin:staff /workarea
 touch ${HOME}/.bashrc
 
 grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ${HOME}/.bashrc
