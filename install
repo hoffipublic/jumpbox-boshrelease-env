@@ -8,5 +8,14 @@ touch ${HOME}/.bashrc
 
 grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ${HOME}/.bashrc
 
+wget -qO - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | sudo apt-key add -
+echo "deb http://apt.starkandwayne.com stable main" | sudo tee /etc/apt/sources.list.d/starkandwayne.list
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo touch /etc/apt/sources.list.d/kubernetes.list 
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt update
+
 echo "$(date -Is) env/jumpbox-boshrelease-env/install sourcing $HOME/.bashrc end." >> $HOME/install.log
 source $HOME/.bashrc
