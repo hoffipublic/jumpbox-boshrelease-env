@@ -1,0 +1,37 @@
+#!bin/bash
+
+function boshenv() {
+    if [ -z "$1" ]; then
+        set -x
+        export BOSH_ENVIRONMENT=malbec_bucc
+        set +x
+        exit 1
+    fi
+    if [ "$1" = '-e' ]; then
+        if [ -z "$2" ]; then
+            >&2 echo "no bosh env given"
+            exit 1
+        else
+            set -x
+            export BOSH_ENVIRONMENT=$2
+            set +x
+            shift
+            shift
+        fi
+    fi
+    if [ "$1" = "-d" ]; then
+        if [ -z "$2" ]; then
+            >&2 echo "no deployment given"
+            exit 1
+        else
+            set -x
+            export BOSH_DEPLOYMENT=$2
+            set +x
+            if [ -z "$BOSH_ENVIRONMENT" ]; then
+                >&2 echo "carefull! no BOSH_ENVIRONMENT is set!!!"
+            fi
+            shift
+            shift
+        fi
+    fi
+}
