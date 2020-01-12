@@ -11,7 +11,7 @@ sudo apt --yes install httpie
 #wget -qO - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | sudo apt-key add -
 #echo "deb http://apt.starkandwayne.com stable main" | sudo tee /etc/apt/sources.list.d/starkandwayne.list
 #sudo apt update
-sudo apt --yes install direnv spruce
+sudo apt --yes install direnv om spruce
 
 #curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 #sudo touch /etc/apt/sources.list.d/kubernetes.list 
