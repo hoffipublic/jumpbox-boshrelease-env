@@ -21,5 +21,6 @@ echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/a
 
 sudo apt update
 
+if [ -x "env/setup.sh" ];then env/setup.sh ; fi
 echo "$(date -Is) env/jumpbox-boshrelease-env/install sourcing $HOME/.bashrc end." >> $HOME/install.log
 source $HOME/.bashrc
