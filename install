@@ -8,7 +8,7 @@ sudo mkdir -p /workarea
 sudo chown admin:staff /workarea
 touch ${HOME}/.bashrc
 
-sudo --yes apt install apt-transport-https
+sudo apt --yes install apt-transport-https
 
 grep -q "source $HOME/env/bashrc" ~/.bashrc || echo "source $HOME/env/bashrc" >> ${HOME}/.bashrc
 
