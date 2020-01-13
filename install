@@ -6,6 +6,7 @@ set -e
 mkdir -p ~/bin
 sudo mkdir -p /workarea
 sudo chown admin:staff /workarea
+sudo chmod 775 /workarea
 touch ${HOME}/.bashrc
 
 sudo apt --yes install apt-transport-https

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+umask 002 # 002 = rwxrwxr.x 022 = rwxr.xr.x
 export EDITOR=vim
 
 alias md5fingerprint='ssh-keygen -E md5 -lf'
