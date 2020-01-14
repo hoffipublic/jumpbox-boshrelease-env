@@ -8,15 +8,18 @@ function boshenv() {
         return
     fi
     if [ "$1" = 'info' ]; then
-        local found="none"
-        ( IFS='
+        found="none"
+        OLDIFS="$IFS"
+        IFS='
 '
         for x in $(compgen -A variable | grep --color=never -E '^BOSH' | grep --color=never -E -v 'BACKUP$')
         do
+            found="some"
             local varValue=${!x}
             if [[ "$x" =~ (PASS$|PASSWORD$|CREDENTIAL$|SECRET$|CERT$|CERTIFICATE$) ]]; then varValue='<redacted>' ; fi
             echo "${x}=${varValue}"
-        done )
+        done
+        IFS="$OLDIFS"
         if [ "$found" = "none" ]; then echo "none." ; fi
         return
     fi
