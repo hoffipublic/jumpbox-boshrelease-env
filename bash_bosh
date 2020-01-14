@@ -29,6 +29,7 @@ function boshenv() {
         export BOSH_GW_PRIVATE_KEY_BACKUP=$BOSH_GW_PRIVATE_KEY ; unset BOSH_GW_PRIVATE_KEY
         export BOSH_CLIENT_BACKUP=$BOSH_CLIENT ; unset BOSH_CLIENT
         export BOSH_CLIENT_SECRET_BACKUP=$BOSH_CLIENT_SECRET ; unset BOSH_CLIENT_SECRET
+        export BOSH_ALL_PROXY_BACKUP=$BOSH_ALL_PROXY ; unset BOSH_ALL_PROXY
         return
     fi
     if [ "$1" = '-e' ]; then
