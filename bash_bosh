@@ -7,6 +7,19 @@ function boshenv() {
         set +x
         return
     fi
+    if [ "$1" = 'info' ]; then
+        local found="none"
+        ( IFS='
+'
+        for x in $(compgen -A variable | grep --color=never -E '^BOSH' | grep --color=never -E -v 'BACKUP$')
+        do
+            local varValue=${!x}
+            if [[ "$x" =~ (PASS$|PASSWORD$|CREDENTIAL$|SECRET$|CERT$|CERTIFICATE$) ]]; then varValue='<redacted>' ; fi
+            echo "${x}=${varValue}"
+        done )
+        if [ "$found" = "none" ]; then echo "none." ; fi
+        return
+    fi
     if [ "$1" = 'unset' ]; then
         export BOSH_ENVIRONMENT_BACKUP=$BOSH_ENVIRONMENT ; unset BOSH_ENVIRONMENT
         export BOSH_DEPLOYMENT_BACKUP=$BOSH_DEPLOYMENT ; unset BOSH_DEPLOYMENT
