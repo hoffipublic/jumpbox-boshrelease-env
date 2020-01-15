@@ -12,7 +12,7 @@ function boshenv() {
         OLDIFS="$IFS"
         IFS='
 '
-        for x in $(compgen -A variable | grep --color=never -E '^BOSH' | grep --color=never -E -v 'BACKUP$')
+        for x in $(compgen -A variable | grep --color=never -E '^BOSH|CREDHUB|HTTP' | grep --color=never -E -v 'BACKUP$')
         do
             found="some"
             local varValue=${!x}
@@ -24,6 +24,9 @@ function boshenv() {
         return
     fi
     if [ "$1" = 'unset' ]; then
+        export HTTPS_PROXY_BACKUP=$HTTPS_PROXY ; unset HTTPS_PROXY
+        export HTTP_PROXY_BACKUP=$HTTP_PROXY ; unset HTTP_PROXY
+        export BOSH_ALL_PROXY_BACKUP=$BOSH_ALL_PROXY ; unset BOSH_ALL_PROXY
         export BOSH_ENVIRONMENT_BACKUP=$BOSH_ENVIRONMENT ; unset BOSH_ENVIRONMENT
         export BOSH_DEPLOYMENT_BACKUP=$BOSH_DEPLOYMENT ; unset BOSH_DEPLOYMENT
         export BOSH_CA_CERT_BACKUP=$BOSH_CA_CERT ; unset BOSH_CA_CERT
@@ -32,7 +35,10 @@ function boshenv() {
         export BOSH_GW_PRIVATE_KEY_BACKUP=$BOSH_GW_PRIVATE_KEY ; unset BOSH_GW_PRIVATE_KEY
         export BOSH_CLIENT_BACKUP=$BOSH_CLIENT ; unset BOSH_CLIENT
         export BOSH_CLIENT_SECRET_BACKUP=$BOSH_CLIENT_SECRET ; unset BOSH_CLIENT_SECRET
-        export BOSH_ALL_PROXY_BACKUP=$BOSH_ALL_PROXY ; unset BOSH_ALL_PROXY
+        export CREDHUB_CA_CERT_BACKUP=$CREDHUB_CA_CERT ; unset CREDHUB_CA_CERT
+        export CREDHUB_CLIENT_BACKUP=$CREDHUB_CLIENT ; unset CREDHUB_CLIENT
+        export CREDHUB_SECRET_BACKUP=$CREDHUB_SECRET ; unset CREDHUB_SECRET
+        export CREDHUB_SERVER_BACKUP=$CREDHUB_SERVER ; unset CREDHUB_SERVER
         return
     fi
     if [ "$1" = '-e' ]; then
