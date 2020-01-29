@@ -24,6 +24,7 @@ sudo apt --yes install kubectl
 #sudo apt update
 #apt-cache policy docker-ce
 sudo apt --yes install docker-ce
+sudo usermod -a -G docker $USER
 
 set +x
 echo "$(date) ${HOME}/env/setup.sh end." >> ${HOME}/install.log
