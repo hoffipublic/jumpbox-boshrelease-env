@@ -4,9 +4,9 @@ echo "$(date -Is) env/jumpbox-boshrelease-env/install start..." >> $HOME/install
 set -e
 
 mkdir -p ~/bin
-sudo mkdir -p /workarea
-sudo chown admin:staff /workarea
-sudo chmod 775 /workarea
+sudo mkdir -p /var/vcap/store/workarea
+sudo chown admin:staff /var/vcap/store/workarea
+sudo chmod 775 /var/vcap/store/workarea
 touch ${HOME}/.bashrc
 
 sudo apt --yes install apt-transport-https
