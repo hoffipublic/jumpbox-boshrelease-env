@@ -6,7 +6,7 @@ set -x
 sudo apt update
 sudo apt --yes upgrade
 
-sudo apt --yes install httpie 
+sudo apt --yes install httpie xclip
 
 #wget -qO - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | sudo apt-key add -
 #echo "deb http://apt.starkandwayne.com stable main" | sudo tee /etc/apt/sources.list.d/starkandwayne.list

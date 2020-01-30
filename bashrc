@@ -12,6 +12,9 @@ alias ll='lsbase -lhFp'
 alias lla='ll -A'
 alias llaa='ll -A .*'
 
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
 ### gnu sed: sed ':a;N;$!ba;s/\n/ /g'
 function toline() { local sep=" " ; if [ ! -z "$1" ]; then sep="$1" ; fi ; sed -e :a -e "\$!N; s/\n/$sep/; ta" ; }
 alias tolinecomma='sed -e :a -e "\$!N; s/\n/, /; ta"'
