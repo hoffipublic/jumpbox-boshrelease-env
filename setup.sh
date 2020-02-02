@@ -26,5 +26,14 @@ sudo apt --yes install kubectl
 sudo apt --yes install docker-ce
 sudo usermod -a -G docker $USER
 
+# put docker data dir on bosh ephemeral vm disk
+# as anything else is to small (<= 4GB)
+# and docker images shouldn't be backuped rather than pulled again
+sudo systemctl stop docker
+sudo mv /var/lib/docker /var/vcap/data/docker-data
+sudo ln -s /var/vcap/data/docker-data /var/lib/docker
+sudo systemctl start docker
+
+
 set +x
 echo "$(date) ${HOME}/env/setup.sh end." >> ${HOME}/install.log

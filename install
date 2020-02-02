@@ -22,7 +22,7 @@ echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/a
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-#groups | grep -E '\bdocker\b' > /dev/null 2>&1 || sudo groupadd docker
+groups | grep -E '\bdocker\b' > /dev/null 2>&1 || sudo groupadd docker
 
 sudo apt update
 apt-cache policy docker-ce
